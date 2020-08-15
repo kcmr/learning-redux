@@ -1,5 +1,5 @@
 import store from './store/store.js';
-import { addTodo } from './store/todos/actions.js';
+import { addTodo } from './store/todos.js';
 
 store.subscribe(() => {
   console.log('State', store.getState());
