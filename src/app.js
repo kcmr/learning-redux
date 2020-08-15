@@ -1,9 +1,12 @@
 import store from './store/store.js';
-import { addTodo } from './store/todos.js';
+import { addTodo, toggleTodo } from './store/todos.js';
 
 store.subscribe(() => {
   console.log('State', store.getState());
 });
+
+// For testing without UI
+window.toggleTodo = (id) => store.dispatch(toggleTodo(id));
 
 const form = document.getElementById('form');
 form.addEventListener('submit', handleFormSubmit);
