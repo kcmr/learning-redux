@@ -1,45 +1,20 @@
-// Action types
-const ADD_TODO = 'ADD_TODO';
-const TOGGLE_TODO = 'TOGGLE_TODO';
-const REMOVE_TODO = 'REMOVE_TODO';
+import { createAction } from '@reduxjs/toolkit';
 
-// Action creators
-export function addTodo(value) {
-  return {
-    type: ADD_TODO,
-    payload: {
-      completed: false,
-      id: Date.now(),
-      value,
-    },
-  };
-}
-
-export function toggleTodo(id) {
-  return {
-    type: TOGGLE_TODO,
-    payload: {
-      id,
-    },
-  };
-}
-
-export function removeTodo(id) {
-  return {
-    type: REMOVE_TODO,
-    payload: {
-      id,
-    },
-  };
-}
+export const addTodo = createAction('ADD_TODO');
+export const toggleTodo = createAction('TOGGLE_TODO');
+export const removeTodo = createAction('REMOVE_TODO');
 
 // Reducer
 export default function reducer(state = [], action) {
   switch (action.type) {
-    case ADD_TODO:
-      return state.concat(action.payload);
+    case addTodo.type:
+      return state.concat({
+        id: Date.now(),
+        completed: false,
+        ...action.payload,
+      });
 
-    case TOGGLE_TODO:
+    case toggleTodo.type:
       return state.map((todo) =>
         todo.id !== action.payload.id
           ? todo
@@ -49,7 +24,7 @@ export default function reducer(state = [], action) {
             },
       );
 
-    case REMOVE_TODO:
+    case removeTodo.type:
       return state.filter((todo) => todo.id !== action.payload.id);
 
     default:
