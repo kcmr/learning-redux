@@ -1,5 +1,7 @@
-import store from './store/store.js';
+import { configStore } from './store/configStore.js';
 import { addTodo, toggleTodo, removeTodo } from './store/todos.js';
+
+const store = configStore();
 
 store.subscribe(() => {
   console.log('State', store.getState());
