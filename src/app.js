@@ -1,14 +1,18 @@
 import store from './store/store.js';
-import { addTodo as addTodoAction } from './store/todos/actions.js';
-
-function addTodo(value) {
-  store.dispatch(addTodoAction(value));
-}
+import { addTodo } from './store/todos/actions.js';
 
 store.subscribe(() => {
-  const state = store.getState();
-  console.log('State', state);
+  console.log('State', store.getState());
 });
 
-// Type `addTodo('something to do')` in the browser console
-window.addTodo = addTodo;
+const form = document.getElementById('form');
+form.addEventListener('submit', handleFormSubmit);
+
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const { value } = this.elements.todo;
+  store.dispatch(addTodo(value));
+
+  this.elements.todo.value = '';
+}
