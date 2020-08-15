@@ -1,5 +1,5 @@
 import store from './store/store.js';
-import { addTodo, toggleTodo } from './store/todos.js';
+import { addTodo, toggleTodo, removeTodo } from './store/todos.js';
 
 store.subscribe(() => {
   console.log('State', store.getState());
@@ -7,6 +7,7 @@ store.subscribe(() => {
 
 // For testing without UI
 window.toggleTodo = (id) => store.dispatch(toggleTodo(id));
+window.removeTodo = (id) => store.dispatch(removeTodo(id));
 
 const form = document.getElementById('form');
 form.addEventListener('submit', handleFormSubmit);

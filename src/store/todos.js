@@ -24,6 +24,15 @@ export function toggleTodo(id) {
   };
 }
 
+export function removeTodo(id) {
+  return {
+    type: REMOVE_TODO,
+    payload: {
+      id,
+    },
+  };
+}
+
 // Reducer
 export default function reducer(state = [], action) {
   switch (action.type) {
@@ -39,6 +48,9 @@ export default function reducer(state = [], action) {
               completed: !todo.completed,
             },
       );
+
+    case REMOVE_TODO:
+      return state.filter((todo) => todo.id !== action.payload.id);
 
     default:
       state;
