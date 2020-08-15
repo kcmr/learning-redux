@@ -685,13 +685,6 @@ has-flag@^3.0.0:
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
   integrity sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
 
-haunted@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/haunted/-/haunted-4.7.0.tgz#23c653f4701ccf970f5e2939fe3c05fee7cc5fc0"
-  integrity sha512-ajsUengbSL2ELljJ2VLU2o5BfG/drzZV+BvSLALvIBx+24owmxC5iW7+SK/Y667JaVmratEPR010bYpGKAt7ow==
-  dependencies:
-    lit-html "^1.0.0"
-
 http-cache-semantics@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
@@ -879,7 +872,7 @@ lit-element@^2.3.1:
   dependencies:
     lit-html "^1.1.1"
 
-lit-html@^1.0.0, lit-html@^1.1.1:
+lit-html@^1.1.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.2.1.tgz#1fb933dc1e2ddc095f60b8086277d4fcd9d62cc8"
   integrity sha512-GSJHHXMGLZDzTRq59IUfL9FCdAlGfqNp/dEa7k7aBaaWD+JKaCjsAk9KYm2V12ItonVaYx2dprN66Zdm1AuBTQ==

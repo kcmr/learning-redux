@@ -1,31 +1,50 @@
-import { useContext, component, html, useState } from 'haunted';
-import { StoreContext } from './StoreProvider';
-import { addTodo } from '../store/todos';
+import { LitElement, html } from 'lit-element';
 
-function TodosForm() {
-  const { dispatch } = useContext(StoreContext);
-  const [value, setValue] = useState('');
+class TodosForm extends LitElement {
+  static get properties() {
+    return {
+      _value: {
+        type: String,
+        attribute: false,
+      },
+    };
+  }
 
-  const handleFormSubmit = (event) => {
+  constructor() {
+    super();
+    this._value = '';
+  }
+
+  _handleFormSubmit(event) {
     event.preventDefault();
-    dispatch(addTodo({ value }));
-    setValue('');
-  };
 
-  const handleInputChange = (event) => setValue(event.target.value);
+    this.dispatchEvent(
+      new CustomEvent('todo-added', {
+        detail: this._value,
+      }),
+    );
 
-  return html`
-    <form @submit=${handleFormSubmit} autocomplete="off">
-      <label for="todo">What needs to be done?</label>
-      <input
-        type="text"
-        id="todo"
-        @change=${handleInputChange}
-        .value=${value}
-      />
-      <button>Add Todo</button>
-    </form>
-  `;
+    this._value = '';
+  }
+
+  _handleInputChange(event) {
+    this._value = event.target.value;
+  }
+
+  render() {
+    return html`
+      <form @submit=${this._handleFormSubmit} autocomplete="off">
+        <label for="todo">What needs to be done?</label>
+        <input
+          type="text"
+          id="todo"
+          @change=${this._handleInputChange}
+          .value=${this._value}
+        />
+        <button>Add Todo</button>
+      </form>
+    `;
+  }
 }
 
-customElements.define('todos-form', component(TodosForm));
+customElements.define('todos-form', TodosForm);
