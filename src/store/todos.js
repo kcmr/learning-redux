@@ -1,33 +1,26 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
 export const addTodo = createAction('ADD_TODO');
 export const toggleTodo = createAction('TOGGLE_TODO');
 export const removeTodo = createAction('REMOVE_TODO');
 
 // Reducer
-export default function reducer(state = [], action) {
-  switch (action.type) {
-    case addTodo.type:
-      return state.concat({
-        id: Date.now(),
-        completed: false,
-        ...action.payload,
-      });
+export default createReducer([], {
+  [addTodo.type]: (todos, action) => {
+    // we can write mutation code here (internally redux tookkit prevents mutation)
+    todos.push({
+      id: Date.now(),
+      completed: false,
+      ...action.payload,
+    });
+  },
 
-    case toggleTodo.type:
-      return state.map((todo) =>
-        todo.id !== action.payload.id
-          ? todo
-          : {
-              ...todo,
-              completed: !todo.completed,
-            },
-      );
+  [toggleTodo.type]: (todos, action) => {
+    const index = todos.findIndex((todo) => todo.id === action.payload.id);
+    todos[index].completed = !todos[index].completed;
+  },
 
-    case removeTodo.type:
-      return state.filter((todo) => todo.id !== action.payload.id);
-
-    default:
-      state;
-  }
-}
+  [removeTodo.type]: (todos, action) => {
+    return todos.filter((todo) => todo.id !== action.payload.id);
+  },
+});
