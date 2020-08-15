@@ -1,7 +1,8 @@
-import { createStore } from 'redux';
-import { devToolsEnhancer } from '../lib/devtools.js';
+import { configureStore } from '@reduxjs/toolkit';
 import todos from './todos.js';
 
 export function configStore() {
-  return createStore(todos, devToolsEnhancer());
+  return configureStore({
+    reducer: todos,
+  });
 }
