@@ -1,4 +1,4 @@
-import { createStore } from '../lib/state-manager.js';
+import { createStore } from 'redux';
 import { todosReducer } from './todos/reducer.js';
 
 const store = createStore(todosReducer);
