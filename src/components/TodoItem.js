@@ -14,12 +14,7 @@ class TodoItem extends LitElement {
 
   _handleCheckboxChange() {
     this.completed = !this.completed;
-
-    this.dispatchEvent(
-      new Event('completed-changed', {
-        detail: this.completed,
-      }),
-    );
+    this.dispatchEvent(new Event('completed-changed'));
   }
 
   _handleButtonClick() {
