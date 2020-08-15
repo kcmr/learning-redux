@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit-element';
 import { configStore } from './store/configStore.js';
 import { addTodo, removeTodo, toggleTodo } from './store/todos.js';
 import './components/TodosForm.js';
-import './components/TodoItem.js';
+import './components/TodoList.js';
 
 const store = configStore();
 
@@ -26,32 +26,22 @@ class ReduxApp extends LitElement {
     store.dispatch(addTodo({ value }));
   }
 
-  _handleTodoRemoved(id) {
-    store.dispatch(removeTodo({ id }));
+  _handleTodoRemoved({ detail }) {
+    store.dispatch(removeTodo({ id: detail.id }));
   }
 
-  _handleCompletedChanged(id) {
-    store.dispatch(toggleTodo({ id }));
+  _handleTodoChanged({ detail }) {
+    store.dispatch(toggleTodo({ id: detail.id }));
   }
 
   render() {
     return html`
       <todos-form @todo-added=${this._handleTodoAdded}></todos-form>
-
-      <ul>
-        ${this._todos.map(
-          ({ value, completed, id }) => html`
-            <li>
-              <todo-item
-                value=${value}
-                ?completed=${completed}
-                @removed=${() => this._handleTodoRemoved(id)}
-                @completed-changed=${() => this._handleCompletedChanged(id)}
-              ></todo-item>
-            </li>
-          `,
-        )}
-      </ul>
+      <todo-list
+        .items=${this._todos}
+        @item-removed=${this._handleTodoRemoved}
+        @item-changed=${this._handleTodoChanged}
+      ></todo-list>
     `;
   }
 }
