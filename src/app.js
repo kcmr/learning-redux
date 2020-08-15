@@ -2,11 +2,7 @@ import store from './store/store.js';
 import { addTodo as addTodoAction } from './store/todos/actions.js';
 
 function addTodo(value) {
-  store.dispatch(
-    addTodoAction({
-      value,
-    }),
-  );
+  store.dispatch(addTodoAction(value));
 }
 
 store.subscribe(() => {
