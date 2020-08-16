@@ -1,8 +1,14 @@
 import { LitElement, html } from 'lit-element';
 import { configStore } from './store/configStore.js';
-import { addTodo, removeTodo, toggleTodo } from './store/todos.js';
+import {
+  addTodo,
+  removeTodo,
+  toggleTodo,
+  selectUndoneTasks,
+} from './store/todos.js';
 import './components/TodosForm.js';
 import './components/TodoList.js';
+import './components/FilterBy.js';
 
 const store = configStore();
 
@@ -21,9 +27,13 @@ class ReduxApp extends LitElement {
     this._todos = [];
 
     store.subscribe(() => {
-      const { entities } = store.getState();
-      this._todos = entities.todos;
+      this._todos = this._getState('todos');
     });
+  }
+
+  _getState(name) {
+    const { entities } = store.getState();
+    return entities[name];
   }
 
   _handleTodoAdded({ detail: value }) {
@@ -38,9 +48,19 @@ class ReduxApp extends LitElement {
     store.dispatch(toggleTodo({ id: detail.id }));
   }
 
+  _handleFilterChanged({ detail: checked }) {
+    this._todos = checked
+      ? selectUndoneTasks(store.getState())
+      : this._getState('todos');
+  }
+
   render() {
     return html`
       <todos-form @todo-added=${this._handleTodoAdded}></todos-form>
+      <filter-by
+        value="Undone"
+        @changed=${this._handleFilterChanged}
+      ></filter-by>
       <todo-list
         .items=${this._todos}
         @item-removed=${this._handleTodoRemoved}

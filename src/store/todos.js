@@ -23,5 +23,9 @@ const slice = createSlice({
   },
 });
 
+// Selectors
+export const selectUndoneTasks = (state) =>
+  state.entities.todos.filter((todo) => todo.completed === false);
+
 export const { addTodo, toggleTodo, removeTodo } = slice.actions;
 export default slice.reducer;
