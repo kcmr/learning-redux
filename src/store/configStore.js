@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import todos from './todos.js';
+import reducer from './reducer.js';
 
 export function configStore() {
   return configureStore({
-    reducer: todos,
+    reducer,
   });
 }

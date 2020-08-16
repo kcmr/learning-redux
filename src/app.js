@@ -19,7 +19,11 @@ class ReduxApp extends LitElement {
     super();
 
     this._todos = [];
-    store.subscribe(() => (this._todos = store.getState()));
+
+    store.subscribe(() => {
+      const { todos } = store.getState();
+      this._todos = todos;
+    });
   }
 
   _handleTodoAdded({ detail: value }) {
