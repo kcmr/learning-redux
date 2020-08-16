@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import './TodoItem.js';
 
 function fireEvent(type, item) {
@@ -40,5 +40,22 @@ class TodoList extends LitElement {
     `;
   }
 }
+
+TodoList.styles = css`
+  :host {
+    display: block;
+  }
+
+  ul {
+    magin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px 0;
+  }
+`;
 
 customElements.define('todo-list', TodoList);

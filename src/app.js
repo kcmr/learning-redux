@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import store from './store/index.js';
 import {
   addTodo,
@@ -65,5 +65,11 @@ class ReduxApp extends LitElement {
     `;
   }
 }
+
+ReduxApp.styles = css`
+  :host {
+    display: block;
+  }
+`;
 
 customElements.define('redux-app', ReduxApp);
