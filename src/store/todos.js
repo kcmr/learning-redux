@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import storage from '../lib/storage';
 
 const slice = createSlice({
   name: 'todos',
-  initialState: [],
+  initialState: storage.getItem('todos') || [],
   reducers: {
     addTodo: (todos, action) => {
       todos.push({

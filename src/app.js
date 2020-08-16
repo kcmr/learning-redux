@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import store from './store/index.js';
 import { addTodo, removeTodo, toggleTodo } from './store/todos.js';
+import storage from './lib/storage.js';
 import './components/TodosForm.js';
 import './components/TodoList.js';
 
@@ -21,10 +22,11 @@ class ReduxApp extends LitElement {
   constructor() {
     super();
 
-    this._todos = [];
+    this._todos = getState('todos');
 
     store.subscribe(() => {
       this._todos = getState('todos');
+      storage.setItem('todos', this._todos);
     });
   }
 
