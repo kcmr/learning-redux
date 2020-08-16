@@ -1,6 +1,12 @@
 import { LitElement, html } from 'lit-element';
 import './TodoItem.js';
 
+function fireEvent(type, item) {
+  return function () {
+    this.dispatchEvent(new CustomEvent(type, { detail: item }));
+  };
+}
+
 class TodoList extends LitElement {
   static get properties() {
     return {
@@ -15,22 +21,6 @@ class TodoList extends LitElement {
     this.items = [];
   }
 
-  _handleTodoRemoved(todo) {
-    this.dispatchEvent(
-      new CustomEvent('item-removed', {
-        detail: todo,
-      }),
-    );
-  }
-
-  _handleCompletedChanged(todo) {
-    this.dispatchEvent(
-      new CustomEvent('item-changed', {
-        detail: todo,
-      }),
-    );
-  }
-
   render() {
     return html`
       <ul>
@@ -40,8 +30,8 @@ class TodoList extends LitElement {
               <todo-item
                 value=${todo.value}
                 ?completed=${todo.completed}
-                @removed=${() => this._handleTodoRemoved(todo)}
-                @completed-changed=${() => this._handleCompletedChanged(todo)}
+                @removed=${fireEvent('item-removed', todo)}
+                @completed-changed=${fireEvent('item-changed', todo)}
               ></todo-item>
             </li>
           `,
