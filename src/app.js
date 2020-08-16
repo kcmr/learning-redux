@@ -11,6 +11,10 @@ import './components/TodoList.js';
 import './components/FilterBy.js';
 
 const store = configStore();
+const getState = (slice) => {
+  const state = store.getState();
+  return slice ? state.entities[slice] : state;
+};
 
 class ReduxApp extends LitElement {
   static get properties() {
@@ -27,13 +31,8 @@ class ReduxApp extends LitElement {
     this._todos = [];
 
     store.subscribe(() => {
-      this._todos = this._getState('todos');
+      this._todos = getState('todos');
     });
-  }
-
-  _getState(name) {
-    const { entities } = store.getState();
-    return entities[name];
   }
 
   _handleTodoAdded({ detail: value }) {
@@ -49,9 +48,7 @@ class ReduxApp extends LitElement {
   }
 
   _handleFilterChanged({ detail: checked }) {
-    this._todos = checked
-      ? selectUndoneTasks(store.getState())
-      : this._getState('todos');
+    this._todos = checked ? selectUndoneTasks(getState()) : getState('todos');
   }
 
   render() {
