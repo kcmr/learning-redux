@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import todos from './todos.js';
-import goals from './goals.js';
+import entities from './entities.js';
 
 export default combineReducers({
-  todos,
-  goals,
+  entities,
 });
