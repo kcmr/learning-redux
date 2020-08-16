@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element';
-import { configStore } from './store/configStore.js';
+import store from './store/index.js';
 import {
   addTodo,
   removeTodo,
@@ -10,7 +10,6 @@ import './components/TodosForm.js';
 import './components/TodoList.js';
 import './components/FilterBy.js';
 
-const store = configStore();
 const getState = (slice) => {
   const state = store.getState();
   return slice ? state.entities[slice] : state;
